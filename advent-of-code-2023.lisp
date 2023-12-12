@@ -37,12 +37,45 @@
 (defun last-digit (string &optional (default 0))
   (first-digit (reverse string) default))
 
+(defun reduce-line (line)
+  (+ (* 10 (first-digit line))
+     (last-digit line)))
 
 (defun day-01-answer-01 ()
   ;; 53080
-  (let ((filename *input-file*))
-    (apply #'+ (transform-lines
-                filename
-                (lambda (line)
-                  (+ (* 10 (first-digit line))
-                     (last-digit line)))))))
+  (apply #'+ (transform-lines *input-file* #'reduce-line)))
+
+(defvar *word-to-digit*
+  '(("one" . 1)
+    ("two" . 2)
+    ("three" . 3)
+    ("four" . 4)
+    ("five" . 5)
+    ("six" . 6)
+    ("seven" . 7)
+    ("eight" . 8)
+    ("nine" . 9)))
+
+(defmacro regex (string forward)
+  `(cl-ppcre:regex-replace-all
+    '(:register
+      (:alternation
+       ,@(loop for pair in *word-to-digit*
+               collect (if forward (car pair) (reverse (car pair))))))
+    (if ,forward ,string (reverse ,string))
+    #'(lambda (match &rest registers)
+        (write-to-string
+         (cdr
+          (assoc (if ,forward (car registers) (reverse (car registers)))
+                 ',*word-to-digit*
+                 :test #'string=))))
+    :simple-calls t))
+
+(defun day-01-answer-02 ()
+  ;; 53255 - too low
+  ;; "twone345twone" => 2ne345tw1 (think about that)
+  ;; 53268 <= correct
+  (apply #'+ (transform-lines *input-file*
+                              #'(lambda (line)
+                                  (+ (* 10 (first-digit (regex line 't)))
+                                     (first-digit (regex line nil)))))))
