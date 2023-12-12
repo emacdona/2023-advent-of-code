@@ -12,8 +12,7 @@
 
 (defun show-input-lines ()
   (let ((filename *input-file*))
-    (transform-lines filename
-                     (lambda (line) (format t "~S~%" line)))))
+    (transform-lines filename #'identity)))
 
 ;;; Given a string, find the first digit.
 ;;; If no digits found, return "default"
@@ -37,13 +36,13 @@
 (defun last-digit (string &optional (default 0))
   (first-digit (reverse string) default))
 
-(defun reduce-line (line)
+(defun reduce-line-1 (line)
   (+ (* 10 (first-digit line))
      (last-digit line)))
 
 (defun day-01-answer-01 ()
   ;; 53080
-  (apply #'+ (transform-lines *input-file* #'reduce-line)))
+  (apply #'+ (transform-lines *input-file* #'reduce-line-1)))
 
 (defvar *word-to-digit*
   '(("one" . 1)
@@ -56,26 +55,32 @@
     ("eight" . 8)
     ("nine" . 9)))
 
-(defmacro regex (string forward)
-  `(cl-ppcre:regex-replace-all
-    '(:register
-      (:alternation
-       ,@(loop for pair in *word-to-digit*
-               collect (if forward (car pair) (reverse (car pair))))))
-    (if ,forward ,string (reverse ,string))
-    #'(lambda (match &rest registers)
-        (write-to-string
-         (cdr
-          (assoc (if ,forward (car registers) (reverse (car registers)))
-                 ',*word-to-digit*
-                 :test #'string=))))
-    :simple-calls t))
+(defun convert-words-to-digits (string &key (forward t) (words-assoc *word-to-digit*))
+  (let* ((f (if forward #'identity #'reverse))
+         (result
+           (cl-ppcre:regex-replace-all
+            `(:register
+              (:alternation
+               ,@(loop for pair in words-assoc
+                       collect (funcall f (car pair)))))
+            (funcall f string)
+            #'(lambda (&rest match-and-registers)
+                (write-to-string
+                 (cdr
+                  (assoc (funcall f (cadr match-and-registers))
+                         words-assoc
+                         :test #'string=))))
+            :simple-calls t)
+           ))
+    (funcall f result)))
+
+(defun reduce-line-2 (line)
+  (let ((forward (convert-words-to-digits line))
+        (backward (convert-words-to-digits line :forward nil)))
+    (+ (* 10 (first-digit forward))
+       (last-digit backward))))
 
 (defun day-01-answer-02 ()
-  ;; 53255 - too low
-  ;; "twone345twone" => 2ne345tw1 (think about that)
-  ;; 53268 <= correct
-  (apply #'+ (transform-lines *input-file*
-                              #'(lambda (line)
-                                  (+ (* 10 (first-digit (regex line 't)))
-                                     (first-digit (regex line nil)))))))
+  ;; HINT: "twone345twone" => 2ne345tw1
+  ;; 53268
+  (apply #'+ (transform-lines *input-file* #'reduce-line-2)))
