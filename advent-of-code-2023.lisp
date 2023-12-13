@@ -69,8 +69,7 @@
                   (assoc (funcall f (cadr match-and-registers))
                          words-assoc
                          :test #'string=))))
-            :simple-calls t)
-           ))
+            :simple-calls t)))
     (funcall f result)))
 
 (defun reduce-line-2 (line)
