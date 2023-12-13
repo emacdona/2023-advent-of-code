@@ -1,5 +1,11 @@
 ;;;; package.lisp
 
-(defpackage #:day01 (:use #:cl))
+(defpackage #:common
+  (:use #:cl)
+  (:export #:transform-lines))
 
-(defpackage #:day02 (:use #:cl))
+(defpackage #:day01
+  (:use #:cl #:common))
+
+(defpackage #:day02
+  (:use #:cl #:common))
