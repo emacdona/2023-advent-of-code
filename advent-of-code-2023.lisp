@@ -11,8 +11,7 @@
           collect (funcall transformer line))))
 
 (defun show-input-lines ()
-  (let ((filename *input-file*))
-    (transform-lines filename #'identity)))
+  (transform-lines *input-file* #'identity))
 
 ;;; Given a string, find the first digit.
 ;;; If no digits found, return "default"
