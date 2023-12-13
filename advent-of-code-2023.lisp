@@ -17,7 +17,7 @@
 ;;; Given a string, find the first digit.
 ;;; If no digits found, return "default"
 (defun first-digit (string &optional (default 0))
-  (let ((_chars (coerce string 'list)))
+  (let ((chars (coerce string 'list)))
     (labels ((find-first-digit (chars)
                (let* ((c (car chars))
                       (rest (cdr chars))
@@ -29,7 +29,7 @@
                    (digit digit)
                    (rest (find-first-digit rest))
                    ('t default)))))
-      (find-first-digit _chars))))
+      (find-first-digit chars))))
 
 ;;; Given a string, find the last digit.
 ;;; If no digits found, return "default"
