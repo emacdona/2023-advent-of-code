@@ -2,7 +2,7 @@
 
 (in-package #:day01)
 
-(defvar *input-file* "./resources/day01/input")
+(defvar *input-file* "../../resources/day01/input")
 
 (defun show-input-lines ()
   (transform-lines *input-file* #'identity))
