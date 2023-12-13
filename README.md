@@ -1,9 +1,11 @@
 # advent-of-code-2023
-### _Your Name <your.name@example.com>_
+### Ed MacDonald
 
-This is a project to do ... something.
+My solutions to 2023 Advent of Code.
+
+We'll see how many I find time to complete.
 
 ## License
 
-Specify license here
+I'm not sure.
 

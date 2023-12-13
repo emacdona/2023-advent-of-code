@@ -1,6 +1,6 @@
-;;;; advent-of-code-2023.lisp
+;;;; day01.lisp
 
-(in-package #:advent-of-code-2023)
+(in-package #:day01)
 
 (defvar *input-file* "./resources/day01/input")
 

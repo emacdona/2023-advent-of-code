@@ -1,4 +1,5 @@
 ;;;; package.lisp
 
-(defpackage #:advent-of-code-2023
-  (:use #:cl))
+(defpackage #:day01 (:use #:cl))
+
+(defpackage #:day02 (:use #:cl))

@@ -8,4 +8,4 @@
   :serial t
   :depends-on ("cl-ppcre" "alexandria")
   :components ((:file "package")
-               (:file "advent-of-code-2023")))
+               (:file "advent-of-code-2023-01" :pathname "src/day01/day01")))
