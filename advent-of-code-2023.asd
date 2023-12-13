@@ -10,5 +10,5 @@
   :components ((:file "package")
                (:file "common" :pathname "src/common/common")
                (:file "day01" :pathname "src/day01/day01")
-               (:file "day02" :pathname "src/day01/day01")
+               (:file "day02" :pathname "src/day02/day02")
                ))
