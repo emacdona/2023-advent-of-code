@@ -54,14 +54,18 @@
     ("eight" . 8)
     ("nine" . 9)))
 
+;; Nice to have this separate, so that you can look at what it does via the REPL
+(defun number-words-regex (&key f (words-assoc *word-to-digit*))
+  `(:register
+    (:alternation
+     ,@(loop for pair in words-assoc
+             collect (funcall f (car pair))))))
+
 (defun convert-words-to-digits (string &key (forward t) (words-assoc *word-to-digit*))
   (let* ((f (if forward #'identity #'reverse))
          (result
            (cl-ppcre:regex-replace-all
-            `(:register
-              (:alternation
-               ,@(loop for pair in words-assoc
-                       collect (funcall f (car pair)))))
+            (number-words-regex :f f :words-assoc words-assoc)
             (funcall f string)
             #'(lambda (&rest match-and-registers)
                 (write-to-string
