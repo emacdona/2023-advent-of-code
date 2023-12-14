@@ -21,7 +21,7 @@
                  (cond
                    (digit digit)
                    (rest (find-first-digit rest))
-                   ('t default)))))
+                   (t default)))))
       (find-first-digit chars))))
 
 ;;; Given a string, find the last digit.
