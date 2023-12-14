@@ -17,6 +17,9 @@
    #:day-02-answer-01
    #:day-02-answer-02))
 
+(defpackage #:day03
+  (:use #:cl #:common))
+
 (defpackage #:tests
   (:use #:cl
         #:fiveam
