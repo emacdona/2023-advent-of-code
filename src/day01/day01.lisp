@@ -4,9 +4,6 @@
 
 (defvar *input-file* "../../resources/day01/input")
 
-(defun show-input-lines ()
-  (transform-lines *input-file* #'identity))
-
 ;;; Given a string, find the first digit.
 ;;; If no digits found, return "default"
 (defun first-digit (string &optional (default 0))
