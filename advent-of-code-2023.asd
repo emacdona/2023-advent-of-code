@@ -1,9 +1,9 @@
 ;;;; advent-of-code-2023.asd
 
 (asdf:defsystem #:advent-of-code-2023
-  :description "Describe advent-of-code-2023 here"
-  :author "Your Name <your.name@example.com>"
-  :license  "Specify license here"
+  :description "My attempted solutions for Advent of Code 2023."
+  :author "Ed MacDonald"
+  :license  "I'm not sure yet."
   :version "0.0.1"
   :serial t
   :depends-on ("cl-ppcre" "alexandria" "fiveam")

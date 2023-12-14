@@ -3,7 +3,7 @@
 (defpackage #:common
   (:use #:cl)
   (:export #:transform-lines
-           #:show-input-lines))
+           #:get-input-lines))
 
 (defpackage #:day01
   (:use #:cl #:common)

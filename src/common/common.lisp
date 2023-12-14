@@ -8,5 +8,5 @@
           while line
           collect (funcall transformer line))))
 
-(defun show-input-lines (filename)
+(defun get-input-lines (filename)
   (transform-lines filename #'identity))
