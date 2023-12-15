@@ -10,7 +10,7 @@
 (defun make-grid ()
   (mapcar (lambda (line)
             (coerce line 'list))
-          (get-input-lines *input-file*)))
+          (get-input-lines)))
 
 (defun find-numbers (grid)
   )
