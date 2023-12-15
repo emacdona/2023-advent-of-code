@@ -2,7 +2,10 @@
 
 (in-package #:day02)
 
-(defvar *input-file* "../../resources/day02/input")
+(defvar *input-file*
+  (asdf:system-relative-pathname
+   "advent-of-code-2023"
+   "resources/day02/input"))
 
 (defun parse (line)
   (labels ((trim (s) (ppcre:regex-replace-all "^\\s+|\\s+$" s "")))

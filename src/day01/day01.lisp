@@ -2,7 +2,10 @@
 
 (in-package #:day01)
 
-(defvar *input-file* "../../resources/day01/input")
+(defvar *input-file*
+  (asdf:system-relative-pathname
+   "advent-of-code-2023"
+   "resources/day01/input"))
 
 ;;; Given a string, find the first digit.
 ;;; If no digits found, return "default"
