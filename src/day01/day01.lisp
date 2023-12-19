@@ -51,7 +51,7 @@
 ;; Nice to have this separate, so that you can look at what it does via the REPL
 ;; Also, try this from the REPL to shed some light on this:
 ;;   (cl-ppcre:parse-string "(one|two|three)")
-(defun number-words-regex (&key f (words-assoc *word-to-digit*))
+(defun number-words-regex (&key (f #'identity) (words-assoc *word-to-digit*))
   `(:register
     (:alternation
      ,@(loop for pair in words-assoc
