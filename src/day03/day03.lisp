@@ -90,4 +90,4 @@
 
        ((right-boundary-p obj) #\RIGHTWARDS_TRIANGLE-HEADED_ARROW_TO_BAR)
 
-       (t " ")))))
+       (t #\DOTTED_SQUARE)))))
