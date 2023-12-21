@@ -14,11 +14,11 @@
 
 (defun make-stream (grid)
   (loop
-    for row in grid
+    for row on grid
     for i = 0 then (+ 1 i)
     append
     (loop
-      for col in row
+      for col on (car row)
       for j = 0 then (+ 1 j)
       collect
       (list
@@ -28,9 +28,16 @@
        ;; left boundary?
        (if (= j 0) t nil)
 
+       ;; bottom boundary
+       (if (cdr row) nil t)
+
+
+       ;; right boundary
+       (if (cdr col) nil t)
+
        i
        j
-       col))))
+       (car col)))))
 
 (defclass number-region ()
   (digits
