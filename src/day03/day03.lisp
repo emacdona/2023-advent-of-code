@@ -65,29 +65,29 @@
        ((and
         (top-boundary-p obj)
         (left-boundary-p obj))
-        #\NORTH_WEST_TRIANGLE-HEADED_ARROW_TO_BAR)
+        #\BOX_DRAWINGS_DOUBLE_DOWN_AND_RIGHT)
 
        ((and
          (top-boundary-p obj)
          (right-boundary-p obj))
-        #\NORTH_EAST_TRIANGLE-HEADED_ARROW_TO_BAR)
+        #\BOX_DRAWINGS_DOUBLE_DOWN_AND_LEFT)
 
        ((and
          (bottom-boundary-p obj)
          (left-boundary-p obj))
-        #\SOUTH_WEST_TRIANGLE-HEADED_ARROW_TO_BAR)
+        #\BOX_DRAWINGS_DOUBLE_UP_AND_RIGHT)
 
        ((and
         (bottom-boundary-p obj)
         (right-boundary-p obj))
-        #\SOUTH_EAST_TRIANGLE-HEADED_ARROW_TO_BAR)
+        #\BOX_DRAWINGS_DOUBLE_UP_AND_LEFT)
 
-       ((top-boundary-p obj) #\UPWARDS_TRIANGLE-HEADED_ARROW_TO_BAR)
+       ((top-boundary-p obj) #\BOX_DRAWINGS_DOUBLE_DOWN_AND_HORIZONTAL)
 
-       ((bottom-boundary-p obj) #\DOWNWARDS_TRIANGLE-HEADED_ARROW_TO_BAR)
+       ((bottom-boundary-p obj) #\BOX_DRAWINGS_DOUBLE_UP_AND_HORIZONTAL)
 
-       ((left-boundary-p obj) #\LEFTWARDS_TRIANGLE-HEADED_ARROW_TO_BAR)
+       ((left-boundary-p obj) #\BOX_DRAWINGS_DOUBLE_VERTICAL_AND_RIGHT)
 
-       ((right-boundary-p obj) #\RIGHTWARDS_TRIANGLE-HEADED_ARROW_TO_BAR)
+       ((right-boundary-p obj) #\BOX_DRAWINGS_DOUBLE_VERTICAL_AND_LEFT)
 
-       (t #\DOTTED_SQUARE)))))
+       (t #\BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL)))))
