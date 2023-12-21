@@ -12,8 +12,20 @@
             (coerce line 'list))
           (get-input-lines)))
 
-(defun find-numbers (grid)
-  )
+(defun make-stream (grid)
+  (loop
+    for row in grid
+    for i = 0 then (+ 1 i)
+    append
+    (loop
+      for col in row
+      for j = 0 then (+ 1 j)
+      collect (list i j col))))
+
+(defclass number-region ()
+    (digits
+     top-left-coord
+     lower-right-coord))
 
 (defun find-symbols (grid)
   )
