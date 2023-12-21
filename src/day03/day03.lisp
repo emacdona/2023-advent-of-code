@@ -29,8 +29,7 @@
        :top-boundary-p (if (= i 0) t nil)
        :bottom-boundary-p (if (cdr row) nil t)
        :left-boundary-p (if (= j 0) t nil)
-       :right-boundary-p (if (cdr col) nil t)
-       ))))
+       :right-boundary-p (if (cdr col) nil t)))))
 
 (defclass token ()
   ((char
@@ -53,8 +52,7 @@
     :reader left-boundary-p)
    (right-boundary-p
     :initarg :right-boundary-p
-    :reader right-boundary-p)
-   ))
+    :reader right-boundary-p)))
 
 (defmethod print-object ((obj token) out)
   (print-unreadable-object (obj out :type t)
