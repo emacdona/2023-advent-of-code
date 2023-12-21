@@ -20,12 +20,22 @@
     (loop
       for col in row
       for j = 0 then (+ 1 j)
-      collect (list i j col))))
+      collect
+      (list
+       ;; top boundary?
+       (if (= i 0) t nil)
+
+       ;; left boundary?
+       (if (= j 0) t nil)
+
+       i
+       j
+       col))))
 
 (defclass number-region ()
-    (digits
-     top-left-coord
-     lower-right-coord))
+  (digits
+   top-left-coord
+   lower-right-coord))
 
 (defun find-symbols (grid)
   )
