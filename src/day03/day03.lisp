@@ -225,28 +225,48 @@
 
 (defun parse (stream)
   (labels
-      ((my-parse (stream accum &optional (symbols '()) (numbers '()))
-         (let* ((token (car stream)))
-           (with-slots (token-char right-boundary-p) token
+      ((my-parse (stream &optional (accum nil)  (symbols '()) (numbers '()))
+         (let* ((token (car stream))
+                (remaining-tokens (cdr stream)))
+           (with-slots ((token-char char) right-boundary-p) token
              (cond
-               ((nullp accum)
-                (cond
-                  ((digit-char-p token-char)
-                   (my-parse
-                    (cdr stream)
-                    (make-instance 'number-token :digit token-char)
-                    symbols
-                    numbers)
-                   )
-                  ((not (eq #\. token-char))
-                   )
-                  (t
-                   )
-                  )
-                )
-               (t
+               ;; No more tokens. We're done!
+               ((null remaining-tokens)
+                (values symbols numbers))
 
-                )
+               ;; It's a digit
+               ((digit-char-p token-char)
+                (my-parse
+                 remaining-tokens
+                 (if (null accum)
+                     (make-instance 'number-token :digit token-char)
+                     (accum-digit-token accum token))
+                 symbols
+                 numbers))
+
+               ;; It's a character
+               ((not (eq #\. token-char))
+                (my-parse
+                 remaining-tokens
+                 nil
+                 (cons token symbols)
+                 (if (not (null accum))
+                     (cons accum numbers)
+                     numbers)
+                 ))
+
+               ;; It's neither (ie: it's #\.)
+               (t
+                (my-parse
+                 remaining-tokens
+                 nil
+                 symbols
+                 (if (not (null accum))
+                     (cons accum numbers)
+                     numbers)
+                 ))
                )
              ))))
+    (my-parse stream)
     ))
+
