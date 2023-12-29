@@ -272,3 +272,24 @@
     (my-parse stream)
     ))
 
+;; *****************************************************************************
+;; *
+;; * Some functions For demo-ing
+;; *
+;; *****************************************************************************
+(defun show-grid ()
+  (first (make-grid)))
+
+(defun show-stream ()
+  (list
+
+   ;; I know this one is not a digit
+   (first (make-stream (make-grid)))
+
+   ;; I know this one is a digit
+   (nth 7 (make-stream (make-grid)))))
+
+(defun show-tokens ()
+  (multiple-value-bind
+        (chars numbers) (parse (make-stream (make-grid)))
+    (list (first chars) (first numbers))))
