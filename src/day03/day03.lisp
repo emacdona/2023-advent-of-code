@@ -169,7 +169,7 @@
      region-bottom-right
      value))))
 
-(defmethod initialize-instance :after ((obj number-token) &key digit)
+(defmethod initialize-instance :after ((obj number-token) &key (digit #\0))
   (add-digit obj digit))
 
 (defgeneric add-digit (instance digit))
@@ -239,7 +239,9 @@
                 (my-parse
                  remaining-tokens
                  (if (null accum)
-                     (make-instance 'number-token :digit token-char)
+                     (let ((number-token (make-instance 'number-token)))
+                       (accum-digit-token number-token token)
+                       number-token)
                      (accum-digit-token accum token))
                  symbols
                  numbers))
