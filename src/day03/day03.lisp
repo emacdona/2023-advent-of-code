@@ -311,12 +311,6 @@
   (defvar *i-map* i-map)
   (defvar *j-map* j-map))
 
-(defun testfoo ()
-  (loop
-    for char-token in *char-tokens*
-    do
-       (format t "hello~%")))
-
 ;; *****************************************************************************
 ;; *
 ;; * Some functions For demo-ing
