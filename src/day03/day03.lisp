@@ -312,6 +312,27 @@
   (defvar *i-map* i-map)
   (defvar *j-map* j-map))
 
+(defun day-03-answer-01 ()
+  (apply #'+
+         (mapcar (lambda (token)
+                   (with-slots (region-top-left region-bottom-right) token
+                     (with-slots ((tli i) (tlj j)) region-top-left
+                       (with-slots ((bri i) (brj j)) region-bottom-right
+                         (let ((i-candidates
+                                 (fset:reduce
+                                  #'fset:union
+                                  (loop for i from tli to bri
+                                        collect (fset:lookup *i-map* i))))
+                               (j-candicates
+                                 (fset:reduce
+                                  #'fset:union
+                                  (loop for j from tlj to brj
+                                        collect (fset:lookup *j-map* j)))))
+                           (if (not (fset:empty? (fset:intersection i-candidates j-candicates)))
+                               (value token)
+                               0))))))
+                 *number-tokens*)))
+
 ;; *****************************************************************************
 ;; *
 ;; * Some functions For demo-ing
