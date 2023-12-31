@@ -12,24 +12,28 @@
             (coerce line 'list))
           (get-input-lines)))
 
+(defvar *token-id* 0)
+
 (defun make-stream (grid)
-  (loop
-    for row on grid
-    for i = 0 then (+ 1 i)
-    append
+  (let ((*token-id* 0))
     (loop
-      for col on (car row)
-      for j = 0 then (+ 1 j)
-      collect
-      (make-instance
-       'token
-       :token-char (car col)
-       :i i
-       :j j
-       :top-boundary-p (if (= i 0) t nil)
-       :bottom-boundary-p (if (cdr row) nil t)
-       :left-boundary-p (if (= j 0) t nil)
-       :right-boundary-p (if (cdr col) nil t)))))
+      for row on grid
+      for i = 0 then (+ 1 i)
+      append
+      (loop
+        for col on (car row)
+        for j = 0 then (+ 1 j)
+        collect
+        (make-instance
+         'token
+         :id (incf *token-id*)
+         :token-char (car col)
+         :i i
+         :j j
+         :top-boundary-p (if (= i 0) t nil)
+         :bottom-boundary-p (if (cdr row) nil t)
+         :left-boundary-p (if (= j 0) t nil)
+         :right-boundary-p (if (cdr col) nil t))))))
 
 (defclass point ()
   ((i
@@ -53,6 +57,8 @@
 
    ;; initialized with keywords :i and :j via initialize-instance:after
    (coordinate :reader coordinate)
+
+   (id :initarg :id :reader id)
 
    (top-boundary-p
     :initarg :top-boundary-p
@@ -271,6 +277,45 @@
              ))))
     (my-parse stream)
     ))
+
+(multiple-value-bind (char-tokens number-tokens) (parse (make-stream (make-grid)))
+  (defvar *char-tokens* char-tokens)
+  (defvar *number-tokens* number-tokens))
+
+
+(defun coordinate-mappings (char-tokens)
+  (labels
+      ((coordinate-mappings-iter (char-tokens
+                                  &optional
+                                  (i-map (fset:empty-map (fset:empty-set)))
+                                  (j-map (fset:empty-map (fset:empty-set))))
+         (let ((token (car char-tokens))
+               (remaining-tokens (cdr char-tokens)))
+           (if (null token)
+               (values i-map j-map)
+               (with-slots (coordinate id) token
+                 (with-slots (i j) coordinate
+                   (coordinate-mappings-iter
+                    remaining-tokens
+                    (fset:with
+                     i-map
+                     i
+                     (fset:with (fset:lookup i-map i) id))
+                    (fset:with
+                     j-map
+                     j
+                     (fset:with (fset:lookup j-map j) id)))))))))
+    (coordinate-mappings-iter char-tokens)))
+
+(multiple-value-bind (i-map j-map) (coordinate-mappings *char-tokens*)
+  (defvar *i-map* i-map)
+  (defvar *j-map* j-map))
+
+(defun testfoo ()
+  (loop
+    for char-token in *char-tokens*
+    do
+       (format t "hello~%")))
 
 ;; *****************************************************************************
 ;; *

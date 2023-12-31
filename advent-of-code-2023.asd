@@ -6,7 +6,7 @@
   :license  "I'm not sure yet."
   :version "0.0.1"
   :serial t
-  :depends-on ("cl-ppcre" "alexandria" "fiveam")
+  :depends-on ("cl-ppcre" "alexandria" "fiveam" "fset")
   :components ((:file "package")
                (:file "common" :pathname "src/common/common")
                (:file "day01" :pathname "src/day01/day01")
