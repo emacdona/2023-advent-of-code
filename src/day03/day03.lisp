@@ -312,6 +312,8 @@
   (defvar *i-map* i-map)
   (defvar *j-map* j-map))
 
+;; 1296374 -- too high
+;; 540131 -- just need to fix the code to generate this. The issue is that '757\n437' becomes 757437
 (defun day-03-answer-01 ()
   (apply #'+
          (mapcar (lambda (token)
