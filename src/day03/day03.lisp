@@ -80,7 +80,7 @@
 (defmethod print-object ((obj token) out)
   (print-unreadable-object (obj out :type t)
     (format
-     out "~a: '~a' ~a"
+     out "~a: '~a' ~a id: ~a"
      (coordinate obj)
      (token-char obj)
      (cond
@@ -112,7 +112,8 @@
 
        ((right-boundary-p obj) #\BOX_DRAWINGS_DOUBLE_VERTICAL_AND_LEFT)
 
-       (t #\BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL)))))
+       (t #\BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL))
+     (id obj))))
 
 (defgeneric top-left (obj))
 
