@@ -26,3 +26,8 @@
   "Test that Day 2, Problem 2 answer is still correct."
   (is
    (= 77607 (day-02-answer-02))))
+
+(test day-03-answer-01
+  "Test that Day 3, Problem 1 answer is still correct."
+  (is
+   (= 540131 (day-03-answer-01))))

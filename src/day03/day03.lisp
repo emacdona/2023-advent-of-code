@@ -241,6 +241,20 @@
                ((null remaining-tokens)
                 (values symbols numbers))
 
+               ;; It's a right-boundary digit
+               ((and (digit-char-p token-char) right-boundary-p)
+                (my-parse
+                 remaining-tokens
+                 nil
+                 symbols
+                 (cons
+                  (if (null accum)
+                      (let ((number-token (make-instance 'number-token)))
+                        (accum-digit-token number-token token)
+                        number-token)
+                      (accum-digit-token accum token))
+                  numbers)))
+
                ;; It's a digit
                ((digit-char-p token-char)
                 (my-parse
@@ -312,8 +326,6 @@
   (defvar *i-map* i-map)
   (defvar *j-map* j-map))
 
-;; 1296374 -- too high
-;; 540131 -- just need to fix the code to generate this. The issue is that '757\n437' becomes 757437
 (defun day-03-answer-01 ()
   (apply #'+
          (mapcar (lambda (token)

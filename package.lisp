@@ -18,10 +18,13 @@
    #:day-02-answer-02))
 
 (defpackage #:day03
-  (:use #:cl #:common))
+  (:use #:cl #:common)
+  (:export
+   #:day-03-answer-01))
 
 (defpackage #:tests
   (:use #:cl
         #:fiveam
         #:day01
-        #:day02))
+        #:day02
+        #:day03))
