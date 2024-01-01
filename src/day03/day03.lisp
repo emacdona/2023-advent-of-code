@@ -337,15 +337,26 @@
                                   #'fset:union
                                   (loop for i from tli to bri
                                         collect (fset:lookup *i-map* i))))
-                               (j-candicates
+                               (j-candidates
                                  (fset:reduce
                                   #'fset:union
                                   (loop for j from tlj to brj
                                         collect (fset:lookup *j-map* j)))))
-                           (if (not (fset:empty? (fset:intersection i-candidates j-candicates)))
+                           (if (not (fset:empty? (fset:intersection i-candidates j-candidates)))
                                (value token)
                                0))))))
                  *number-tokens*)))
+
+(defun id-to-token-map (tokens)
+  (labels ((id-to-token-map-iter (tokens &optional (map (fset:empty-map)))
+             (if (null tokens)
+                 map
+                 (let ((token (car tokens)))
+                   (with-slots (id) token
+                     (id-to-token-map-iter
+                      (cdr tokens)
+                      (fset:with map id token)))))))
+    (id-to-token-map-iter tokens)))
 
 ;; *****************************************************************************
 ;; *
